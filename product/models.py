@@ -8,18 +8,17 @@ from books.utils import unique_slug_generator
 
 class Category(models.Model):
     name = models.CharField(max_length=50)
-    image = models.ImageField(upload_to='catagory/')
     slug=models.SlugField(max_length=120,blank=True,null=True)
 
     def __str__(self):
         return self.name
     
     def image_tag(self):
-        return mark_safe('<img src="%s" width="80" heigth="60">' % (self.image.url))    
+        return mark_safe('<img src="%s" width="80" heigth="60">' % (self.image.url))  
 
 class Books(models.Model):
     name = models.CharField(max_length=60)
-    auther=models.CharField(max_length=60)
+    auther=models.CharField(max_length=60,default="Unicon")
     image=models.ImageField(upload_to='books/')
     narx=models.IntegerField()
     catagory=models.ForeignKey(Category, on_delete=models.CASCADE)
@@ -36,11 +35,13 @@ class Books(models.Model):
 
 class Banner(models.Model):
     banner=models.ForeignKey(Books,on_delete=models.CASCADE)
+    image=models.ImageField(upload_to='banner/')
 
     
 class Order(models.Model):
     date_order=models.DateField(auto_now_add=True)
     complate=models.BooleanField(default=False)
+
 
 
 class OrderItem(models.Model):

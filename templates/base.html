@@ -21,18 +21,8 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <!-- Responsive CSS -->
     <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
-
-
-
-
-
-
 </head>
-
 <body>
-
-
-
     <div class="body-wrapper">
         <!-- Begin Header Area -->
         <header>
@@ -195,17 +185,24 @@
                             <div class="hb-menu">
                                 <nav>
                                     <ul>
-                                        <li class="dropdown-holder"><a href="index.html">Бўлимлар</a>
+                                        <li class="dropdown-holder"><a href="#">Бўлимлар</a>
                                             <ul class="hb-dropdown">
-                                                <li class="active"><a href="index.html">Диний китоблар</a></li>
-                                                <li><a href="index-2.html">Бизнес ва психология</a></li>
+                                                
+                                                {% for category in categorys %}
+                                                
+                                        <li class=""><a href="index.html">{{category.name}}</a></li>
+                                                                                                
+                                                {% endfor %}
+                                                <!-- <li><a href="index-2.html">Бизнес ва психология</a></li>
                                                 <li><a href="index-3.html">Совғалар</a></li>
                                                 <li><a href="index-4.html">Ўзбек адабиёти</a></li>
                                                 <li><a href="index-4.html">Жаҳон адабиёти</a></li>
                                                 <li><a href="index-4.html">Кийимлар</a></li>
                                                 <li><a href="index-4.html">Табобат</a></li>
                                                 <li><a href="index-4.html">Жойнамоз</a></li>
-                                                <li><a href="index-4.html">Араб тили дарслик</a></li>
+                                                <li><a href="index-4.html">Араб тили дарслик</a></li> -->
+    
+                                                
                                             </ul>
                                         </li>
                                         <li><a href="index.html">Бош саҳифа</a></li>
