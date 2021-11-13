@@ -62,3 +62,11 @@ def serachview(request):
         'page_obj':page_obj
     }
     return render(request,'shop-left-sidebar.html',context)
+
+def cantactview(request):
+    context=''
+    return render(request,'contact.html',context)
+
+def orderview(request):
+    context=""
+    return render(request,'shopping-cart.html',context)
