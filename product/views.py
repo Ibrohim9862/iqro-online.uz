@@ -1,13 +1,8 @@
-from django.core import paginator
-from django.shortcuts import redirect, render
+from django.core.paginator import Paginator
+from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import ListView,DetailView
-
+from django.db.models import Q
 from .models import Banner, Books, Category
-
-
-
-
-
 
 
 def homeview(request):
@@ -31,21 +26,39 @@ class CategoryProductListView(ListView):
     template_name='shop-left-sidebar.html'
     context_object_name="product"
     paginate_by=3
-    
-    def get_context_data(self, **kwargs):
-        context = super(CategoryProductListView, self).get_context_data(**kwargs)
-        context.update({
-            'kateyory':Category.objects.all()
-        })
-        return context 
         
     def get_queryset(self):
-        if self.kwargs.get('slug')=='all':
+        if self.kwargs.get('category_slug')=='all':
             product=Books.objects.all()
-        elif self.kwargs.get('slug'):
-            product=Books.objects.filter(catagory__slug=self.kwargs['slug'])               
+        elif self.kwargs.get('category_slug'):
+            product=Books.objects.filter(catagory__slug=self.kwargs['category_slug'])               
         return product
 
 class ProductDetial(DetailView):
-    model = Books
-    template_name=''
+    context_object_name="product"
+    template_name='single-product.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super(ProductDetial, self).get_context_data(**kwargs)
+        context.update({
+            'kategoriya_boyicha':Books.objects.filter(catagory__slug=self.kwargs['category_slug']).exclude(slug=self.kwargs['product_slug'])[:15]
+        })
+        return   context
+
+    def get_object(self):
+        query = get_object_or_404(Books,
+        catagory__slug=self.kwargs['category_slug'],
+        slug=self.kwargs['product_slug'])
+        return query
+
+def serachview(request):
+    search_name=request.GET['search_name']
+    product=Books.objects.filter(Q(name__icontains=search_name)|Q(auther__icontains=search_name)|Q(catagory__name__icontains=search_name)|Q(discription__icontains=search_name))
+    paginator = Paginator(product, 3) 
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context={
+        'product':product,
+        'page_obj':page_obj
+    }
+    return render(request,'shop-left-sidebar.html',context)

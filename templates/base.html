@@ -109,10 +109,9 @@
                         <!-- Begin Header Middle Right Area -->
                         <div class="col-lg-9 pl-0 ml-sm-15 ml-xs-15">
                             <!-- Begin Header Middle Searchbox Area -->
-                            <form action="#" class="hm-searchbox">
-
-                                <input type="text" placeholder="Enter your search key ...">
-                                <button class="li-btn" type="submit"><i class="fa fa-search"></i></button>
+                            <form action="{% url 'serach_view' %}" method="GET" class="hm-searchbox">
+                                <input type="text" name='search_name' value="{{ request.GET.search_name}}" placeholder="Qidirayotgan kitobiz nomini kiriting">
+                                <button class="li-btn " type="submit"><i class="fa fa-search"></i></button>
                             </form>
                             <!-- Header Middle Searchbox Area End Here -->
                             <!-- Begin Header Middle Right Area -->
@@ -571,6 +570,45 @@
     <script src="{% static 'js/scrollUp.min.js' %}"></script>
     <!-- Main/Activator js -->
     <script src="{% static 'js/main.js' %}"></script>
+
+
+    <script>
+
+
+
+// $( document ).ready(function() {
+//          var serach_name=$('.search_input').val();
+            
+//         function search(serach_name){
+//             console.log(serach_name)
+
+//             $.ajax({
+//                 type:'GET',
+//                 url:'',
+//                 dataType:'json',
+//                 data:{
+//                     'search_name':serach_name
+//                 },
+//                 success: function(response){
+//                     console("success")
+//                 },
+//                 error:function(response){
+//                     console.log(response)
+//                 }
+
+//             })
+
+//         }
+
+//         $('.hm-searchbox').on('submit',function(event){
+//             event.preventDefault();
+//             serach_name=$('.search_input').val();
+//             if(serach_name!=''){
+//                 search(serach_name);
+//             }
+//         })
+// });
+    </script>
 </body>
 
 </html>

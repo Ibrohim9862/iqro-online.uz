@@ -3,6 +3,7 @@ from django.db.models.deletion import CASCADE
 from django.utils.html import mark_safe
 from django.db.models.signals import pre_save
 from books.utils import unique_slug_generator
+from django.urls import reverse
 
 # Create your models here.
 
@@ -32,6 +33,7 @@ class Books(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class Banner(models.Model):
     banner=models.ForeignKey(Books,on_delete=models.CASCADE)
