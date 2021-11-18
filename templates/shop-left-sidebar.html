@@ -82,8 +82,8 @@
                                 </div>
                                 <div class="add-actions">
                                     <ul class="add-actions-link">
-                                        <li class="add-cart active"><a href="#">Add to cart</a></li>
-                                        <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
+                                        <li class="add-cart active"><a href="#" data-productid='{{yangi.id}}'>Add to cart</a></li>
+                                        <li><a href="{% url 'product_detail' yangi.catagory.slug yangi.slug %}" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -139,9 +139,8 @@
                                         <div class="col-lg-4">
                                             <div class="shop-add-action mb-xs-30">
                                                 <ul class="add-actions-link">
-                                                    <li class="add-cart"><a href="#">Add to cart</a></li>
-                                                    <li class="wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
-                                                    <li><a class="quick-view" data-toggle="modal" data-target="#exampleModalCenter" href="#"><i class="fa fa-eye"></i>Quick view</a></li>
+                                                    <li class="add-cart active"><a href="#" data-productid='{{yangi.id}}'>Add to cart</a></li>
+                                                     <li><a href="{% url 'product_detail' yangi.catagory.slug yangi.slug %}" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -195,7 +194,8 @@
                         <ul>
                             
                             {% for kategory in categorys %}
-                            <li class="has-sub"><a href="# ">{{ kategory.name }}</a></li>    
+                            </ul>
+                            <li class="has-sub"><a href="{% url 'catagory_product_list_view' kategory.slug  %}">{{ kategory.name }}</a></li>    
                             {% endfor %}
                         </ul>
                     </div>

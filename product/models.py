@@ -40,30 +40,26 @@ class Banner(models.Model):
     image=models.ImageField(upload_to='banner/')
 
     
-class Order(models.Model):
+class UsershopAdress(models.Model):
+    name = models.CharField(max_length=100)
+    Address=models.CharField(max_length=200)
+    phone=models.CharField(max_length=15)
+    email=models.EmailField(max_length=50,blank=True,null=True)
     date_order=models.DateField(auto_now_add=True)
     complate=models.BooleanField(default=False)
-
+    
+    def __str__(self):
+        return self.name
 
 
 class OrderItem(models.Model):
-    order = models.ForeignKey(Order,on_delete=models.CASCADE)
+    order = models.ForeignKey(UsershopAdress,on_delete=models.CASCADE)
     product=models.ForeignKey(Books,on_delete=models.SET_NULL, null=True)
     qauntity= models.IntegerField()
     date_added=models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.name
-
-class UsershopAdress(models.Model):
-    order=models.ForeignKey(Order,on_delete=models.CASCADE)
-    name = models.CharField(max_length=100)
-    Address=models.CharField(max_length=200)
-    phone=models.CharField(max_length=15)
-    email=models.EmailField(max_length=50,blank=True,null=True)
-    
-    def __str__(self):
-        return self.name
+        return self.product
 
 
 def slug_genrator(sender,instance,*args,**kwargs):

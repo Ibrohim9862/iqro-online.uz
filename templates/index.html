@@ -104,7 +104,7 @@
                          <!-- single-product-wrap start -->
                          <div class="single-product-wrap">
                              <div class="product-image">
-                                 <a href="single-product.html">
+                                 <a href="{% url 'product_detail' yangi.catagory.slug yangi.slug %}">
                                      <img src="static{{ yangi.image.url }}" alt="Li's Product Image">
                                  </a>
                                  <span class="sticker">New</span>
@@ -132,9 +132,9 @@
                                  </div>
                                  <div class="add-actions">
                                      <ul class="add-actions-link">
-                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
-                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                     </ul>
+                                       <li class="add-cart active"><a class="addtocard" data-productid='{{yangi.id}}'>Add to cart</a></li>
+                                        <li><a href="{% url 'product_detail' yangi.catagory.slug yangi.slug %}" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
+                                    </ul>
                                  </div>
                              </div>
                          </div>
@@ -220,7 +220,7 @@
                         <!-- single-product-wrap start -->
                         <div class="single-product-wrap">
                             <div class="product-image">
-                                <a href="single-product.html">
+                                <a href="{% url 'product_detail' yangi.catagory.slug yangi.slug %}">
                                     <img src="static{{ yangi.image.url }}" alt="Li's Product Image">
                                 </a>
                                 <span class="sticker">New</span>
@@ -248,8 +248,8 @@
                                 </div>
                                 <div class="add-actions">
                                     <ul class="add-actions-link">
-                                        <li class="add-cart active"><a href="#">Add to cart</a></li>
-                                        <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
+                                        <li class="add-cart active"><a href="#" data-productid='{{yangi.id}}'>Add to cart</a></li>
+                                        <li><a href="{% url 'product_detail' yangi.catagory.slug yangi.slug %}" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -286,7 +286,7 @@
                          <!-- single-product-wrap start -->
                          <div class="single-product-wrap">
                              <div class="product-image">
-                                 <a href="single-product.html">
+                                 <a href="{% url 'product_detail' yangi.catagory.slug yangi.slug %}">
                                      <img src="static{{ yangi.image.url }}" alt="Li's Product Image">
                                  </a>
                                  <span class="sticker">New</span>
@@ -314,9 +314,9 @@
                                  </div>
                                  <div class="add-actions">
                                      <ul class="add-actions-link">
-                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
-                                         <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                     </ul>
+                                        <li class="add-cart active"><a href="#" data-productid='{{yangi.id}}'>Add to cart</a></li>
+                                        <li><a href="{% url 'product_detail' yangi.catagory.slug yangi.slug %}" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
+                                    </ul>
                                  </div>
                              </div>
                          </div>
