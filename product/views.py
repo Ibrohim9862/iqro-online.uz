@@ -117,11 +117,13 @@ def cartupdate(request):
     
     if str(request.GET['product_id']) in request.session['cartdata']:
             cartdata=request.session['cartdata']
-            cartdata[request.GET['product_id']]['soni'] = request.GET['soni']
+            cartdata[request.GET['product_id']]['soni'] = int(request.GET['soni'])
             cartdata[request.GET['product_id']]['total']=cartdata[request.GET['product_id']]['soni']*cartdata[request.GET['product_id']]['narxi']
             cartdata.update(cartdata)
             request.session['cartdata']=cartdata
     yigindi=yigindi_total(request)
+    print(request.session['cartdata'])
+    print(yigindi)
     context={
         'data_session':request.session['cartdata'],
         'yigindi':yigindi
@@ -129,7 +131,7 @@ def cartupdate(request):
 
 
 
-    return JsonResponse(context)
+    return JsonResponse({'data':context})
 
 
 def delete(request):
