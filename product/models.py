@@ -5,6 +5,7 @@ from django.db.models.signals import pre_save
 from books.utils import unique_slug_generator
 from django.urls import reverse
 
+
 # Create your models here.
 
 class Category(models.Model):
@@ -18,6 +19,7 @@ class Category(models.Model):
         return mark_safe('<img src="%s" width="80" heigth="60">' % (self.image.url))  
 
 class Books(models.Model):
+    
     name = models.CharField(max_length=60)
     auther=models.CharField(max_length=60,default="Unicon")
     image=models.ImageField(upload_to='books/')
@@ -41,25 +43,27 @@ class Banner(models.Model):
 
     
 class UsershopAdress(models.Model):
-    name = models.CharField(max_length=100)
+    ism = models.CharField(max_length=100)
+    familya = models.CharField(max_length=100)
     Address=models.CharField(max_length=200)
     phone=models.CharField(max_length=15)
     email=models.EmailField(max_length=50,blank=True,null=True)
     date_order=models.DateField(auto_now_add=True)
     complate=models.BooleanField(default=False)
+    discription=models.TextField(blank=True,null=True)
     
     def __str__(self):
-        return self.name
+        return self.ism
 
 
 class OrderItem(models.Model):
     order = models.ForeignKey(UsershopAdress,on_delete=models.CASCADE)
     product=models.ForeignKey(Books,on_delete=models.SET_NULL, null=True)
     qauntity= models.IntegerField()
-    date_added=models.DateTimeField(auto_now_add=True)
+    date_added=models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.product
+        return self.product.name
 
 
 def slug_genrator(sender,instance,*args,**kwargs):

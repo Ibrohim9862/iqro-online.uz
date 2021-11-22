@@ -1,13 +1,13 @@
 from django.core.paginator import Paginator
+from django.forms.forms import Form
 from django.http.response import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import ListView,DetailView
+from .forms import UserShopAddressForms
 from django.db.models import Q
-# from django.template.loader import render_to_string
 
 
-
-from .models import Banner, Books, Category
+from .models import Banner, Books, Category, OrderItem, UsershopAdress
 
 
 def homeview(request):
@@ -15,13 +15,13 @@ def homeview(request):
     banner=Banner.objects.all()
     yangilari=book_object.all()[:10]
     biznes_boyicha=book_object.filter(catagory__name='Biznes va psixologiya')[:10]
-    Jaxon_boyicha=book_object.filter(catagory__name='Jahon adabiyoti')[:10]
+    jaxon_boyicha=book_object.filter(catagory__name='Jahon adabiyoti')[:10]
     
     context={
         'banners': banner,
         'yangilari':yangilari,
         'category_boyicha':biznes_boyicha,
-        'jaxon_adabiyoti':Jaxon_boyicha
+        'jaxon_adabiyoti':jaxon_boyicha
     }
     return render(request, 'index.html' ,context)
 
@@ -79,7 +79,7 @@ def yigindi_total(request):
 
 def addtocard(request,soni=1):
     
-    # request.session.clear()
+    
     product=Books.objects.get(id=request.GET['product_id'])
     cart_p={}
     cart_p[str(request.GET['product_id'])]={
@@ -162,6 +162,27 @@ def cantactview(request):
 def orderproduct(request):
     return render(request,'shopping-cart.html')
 
+
+def youcheckout(request):
+    formt = UserShopAddressForms(request.POST or None)    
+    if request.session['cartdata']: 
+        if formt.is_valid():
+            m=formt.save()
+            print('ishladi')
+            print(m.id)
+            for key,value1 in request.session['cartdata'].items():
+                order=OrderItem()
+                order.order=m
+                order.product=Books.objects.get(id=key)
+                order.qauntity=value1['soni']
+                order.save()
+                request.session.clear()
+                request.session['cartdata']={}
+                request.session['yigindi']=0
+                return redirect('home')
+
+    context={'form':formt}
+    return render(request,'checkout.html',context)
 
     
 

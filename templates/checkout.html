@@ -1,0 +1,140 @@
+
+{% extends "base.html" %}
+{% block title %}
+  Buyurtmani rasmiylashtirish
+{% endblock title %}
+
+{% block content %}
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="breadcrumb-content">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li class="active">Checkout</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="checkout-area pt-60 pb-30">
+    <div class="container">
+   
+        <div class="row">
+            <div class="col-lg-6 col-12">
+                <form action="{% url 'you_checkout' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="checkbox-form">
+                        <h3>Billing Details</h3>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="checkout-form-list">
+                                    <label>First Name <span class="required">*</span></label>
+                                    {{form.ism}}
+                                    {% for error in form.ism.errors %}
+                                        <small>{{error}}</small> 
+                                    {% endfor %}
+                                </div>
+                                
+                            </div>
+                            <div class="col-md-6">
+                                <div class="checkout-form-list">
+                                    <label>Last Name <span class="required">*</span></label>
+                                    {{form.familya}} 
+                                    
+                                    {% for error in form.familya.errors %}
+                                        <small>{{error}}</small> 
+                                    {% endfor %}
+                                        
+                                </div>
+                            </div>
+                           
+                            <div class="col-md-12">
+                                <div class="checkout-form-list">
+                                    <label>Address <span class="required">*</span></label>
+                                    {{form.Address}}
+                                    
+                                    {% for error in form.Address.errors %}
+                                        <small>{{error}}</small> 
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="checkout-form-list">
+                                    <label>Email Address <span class="required"></span></label>
+                                    {{form.email}}
+                                    {% for error in form.Address.errors %}
+                                        <small>{{error}}</small> 
+                                    {% endfor %}
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="checkout-form-list">
+                                    <label>Phone  <span class="required">*</span></label>
+                                    {{form.phone}}
+                                    {% for error in form.Address.errors %}
+                                        <small>{{error}}</small> 
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="different-address">
+                            
+                            <div class="order-notes">
+                                <div class="checkout-form-list">
+                                    <label>Order Notes</label>
+                                    {{form.discription}}
+                                    
+                                    {% for error in form.Address.errors %}
+                                        <small>{{error}}</small> 
+                                    {% endfor %}    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="order-button-payment">
+                            <input value="Place order" type="submit">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-6 col-12">
+                <div class="your-order">
+                    <h3>Your order</h3>
+                    <div class="your-order-table table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="cart-product-name">Mahsulotlar</th>
+                                    <th class="cart-product-total">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody class="maxsulot_cart">
+                                
+                                {% for key,value in request.session.cartdata.items %}
+                                <tr class="cart_item">
+                                    <td class="cart-product-name"> {{value.nomi}}<strong class="product-quantity"> × {{value.soni}}</strong></td>
+                                    <td class="cart-product-total"><span class="amount">{{value.narxi}}</span></td>  
+                                  </tr>    
+                                {% endfor %}
+                                    
+                            </tbody>
+                            <tfoot>
+                                <tr class="cart-subtotal">
+                                    <th>Yetkazib berish</th>
+                                    <td><span class="amount">0 so'm</span></td>
+                                </tr>
+                                <tr class="order-total">
+                                    <th>summa</th>
+                                    <td><strong><span class="amount maxsulot_cart_summa">{{request.session.yigindi}} so'm</span></strong></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+           
