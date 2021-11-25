@@ -23,7 +23,7 @@
             <div class="content-wraper mt-30">
                 <div class="container">
                     <div class="row single-product-area">
-                        <div class="col-lg-5 col-md-6">
+                        <div class="col-lg-4 col-md-3">
                            <!-- Product Details Left -->
                             <div class="product-details-left">
                                 <div class="product-details-images slider-navigation-1">
@@ -39,8 +39,8 @@
                             <!--// Product Details Left -->
                         </div>
 
-                        <div class="col-lg-7 col-md-6">
-                            <div class="product-details-view-content pt-60">
+                        <div class="col-lg-8 col-md-9">
+                            <div class="product-details-view-content pt-20">
                                 <div class="product-info">
                                     <h2>{{ product.name }}</h2>
                                     <span class="product-details-ref">After: {{ product.auther }}</span>
@@ -67,13 +67,13 @@
                                         <form action="#" class="cart-quantity">
                                             <div class="quantity">
                                                 <label>Quantity</label>
-                                                <div class="cart-plus-minus">
-                                                    <input class="cart-plus-minus-box" value="1" type="text">
-                                                    <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
-                                                    <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
-                                                </div>
+                                                        <div class="cart-plus-minus">
+                                                            <input class="cart-plus-minus-box" data-productid="{{product.id}}" value="1" type="number">
+                                                            <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
+                                                            <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
+                                                        </div>                                               
                                             </div>
-                                            <button class="add-to-cart" type="submit">Add to cart</button>
+                                            <button href="#" class="add-to-cart" data-productid='{{product.id}}' >Add to cart</button>
                                         </form>
                                     </div>
                                     <div class="product-additional-info pt-25">
@@ -140,41 +140,40 @@
                                     <div class="col-lg-12">
                                      <!-- single-product-wrap start -->
                                      <div class="single-product-wrap">
-                                         <div class="product-image">
-                                             <a href="single-product.html">
-                                                 <img src="{{ MEDIA_URL }}{{ yangi.image.url }}" alt="Li's Product Image">
-                                             </a>
-                                             <span class="sticker">New</span>
-                                         </div>
-                                         <div class="product_desc">
-                                             <div class="product_desc_info">
-                                                 <div class="product-review">
-                                                     <h5 class="manufacturer">
-                                                         <a href="shop-left-sidebar.html">{{ yangi.category__name }}</a>
-                                                     </h5>
-                                                     <div class="rating-box">
-                                                         <ul class="rating">
-                                                             <li><i class="fa fa-star-o"></i></li>
-                                                             <li><i class="fa fa-star-o"></i></li>
-                                                             <li><i class="fa fa-star-o"></i></li>
-                                                             <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                             <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                         </ul>
-                                                     </div>
-                                                 </div>
-                                                 <h4><a class="product_name" href="single-product.html">{{yangi.name}}</a></h4>
-                                                 <div class="price-box">
-                                                     <span class="new-price">{{yangi.narx}} so'm</span>
-                                                 </div>
-                                             </div>
-                                             <div class="add-actions">
-                                                 <ul class="add-actions-link">
-                                                     <li class="add-cart active"><a href="#">Add to cart</a></li>
-                                                     <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                 </ul>
-                                             </div>
-                                         </div>
-                                     </div>
+                                        <div class="product-image">
+                                            <a href="{% url 'product_detail' yangi.catagory.slug yangi.slug %}">
+                                                <img src="{{ MEDIA_URL }}{{ yangi.image.url }}" alt="Li's Product Image">
+                                            </a>
+                                           
+                                        </div>
+                                        <div class="product_desc">
+                                            <div class="product_desc_info">
+                                                <div class="product-review">
+                                                    <h5 class="manufacturer">
+                                                        <a href="{% url 'catagory_product_list_view' yangi.catagory.slug %}">{{ yangi.catagory.name|truncatechars:15 }}</a>                                        </h5>
+                                                    <div class="rating-box">
+                                                        <ul class="rating">
+                                                            <li><i class="fa fa-star-o"></i></li>
+                                                            <li><i class="fa fa-star-o"></i></li>
+                                                            <li><i class="fa fa-star-o"></i></li>
+                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <h4><a class="product_name" href="single-product.html">{{yangi.name|truncatechars:25}}</a></h4>
+                                                <div class="price-box">
+                                                    <span class="new-price">{{yangi.narx}} so'm</span>
+                                                </div>
+                                            </div>
+                                            <div class="add-actions">
+                                                <ul class="add-actions-link">
+                                                    <li class="add-cart active"><a href="#" data-productid='{{yangi.id}}'>Add to cart</a></li>
+                                                    <li><a href="{% url 'product_detail' yangi.catagory.slug yangi.slug %}" title="quick view" class="quick-view-btn" ><i class="fa fa-eye"></i></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
                                      <!-- single-product-wrap end -->
                                      
                                  </div>

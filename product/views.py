@@ -45,10 +45,11 @@ class ProductDetial(DetailView):
     
     def get_context_data(self, **kwargs):
         context = super(ProductDetial, self).get_context_data(**kwargs)
+       
         context.update({
-            'kategoriya_boyicha':Books.objects.filter(catagory__slug=self.kwargs['category_slug']).exclude(slug=self.kwargs['product_slug'])[:15]
+            'kategoriya_boyicha':Books.objects.filter(catagory__slug=self.kwargs['category_slug']).exclude(slug=self.kwargs['product_slug'])[:15],
         })
-        return   context
+        return context
 
     def get_object(self):
         query = get_object_or_404(Books,
@@ -115,12 +116,17 @@ def addtocard(request,soni=1):
  
 def cartupdate(request):
     
+    if (str(request.GET['product_id']) in request.session['cartdata']) is not None:
+        addtocard(request)
+
     if str(request.GET['product_id']) in request.session['cartdata']:
             cartdata=request.session['cartdata']
             cartdata[request.GET['product_id']]['soni'] = int(request.GET['soni'])
             cartdata[request.GET['product_id']]['total']=cartdata[request.GET['product_id']]['soni']*cartdata[request.GET['product_id']]['narxi']
             cartdata.update(cartdata)
             request.session['cartdata']=cartdata
+    
+    
     yigindi=yigindi_total(request)
     print(request.session['cartdata'])
     print(yigindi)
@@ -154,12 +160,13 @@ def delete(request):
 
 
 def cantactview(request):
-    context=''
+    context={}  
     return render(request,'contact.html',context)
 
 
 
 def orderproduct(request):
+    
     return render(request,'shopping-cart.html')
 
 

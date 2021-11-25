@@ -37,7 +37,8 @@
                                             {% if request.session.cartdata %}
 
                                             {% for key,value in request.session.cartdata.items %}
-                                            <tr>
+                                         
+                                            <tr>  
                                                 <td class="li-product-remove"><a href="#"><i class="fa fa-times"></i></a></td>
                                                 <td class="li-product-thumbnail"><a href="#"><img src="{{ MEDIA_URL }}{{value.image}}" width="100" height="120" alt="Li's Product Image"></a></td>
                                                 <td class="li-product-name"><a href="#">{{value.nomi}}</a></td>
@@ -75,7 +76,7 @@
                                         <div class="cart-page-total">
                                             <h2>Cart totals</h2>
                                             <ul>
-                                                <li class="summasi">Umumiy hisob <span>0 so'm</span> </li>
+                                                <li class="summasi">Umumiy hisob <span class="yigindi_summa">{{ request.session.yigindi }} so'm</span> </li>
                                             </ul>
                                             
                                             <a href="#" class="mr-auto">Proceed to checkout</a>

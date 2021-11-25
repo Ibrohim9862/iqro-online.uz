@@ -145,10 +145,10 @@
     </ul>
     <p class="minicart-total">Summa: <span>{{ request.session.yigindi }} so'm</span></p>
     <div class="minicart-button">
-        <a href="shopping-cart.html" class="li-button li-button-fullwidth li-button-dark">
+        <a href="{% url 'order_product' %}" class="li-button li-button-fullwidth li-button-dark">
             <span>View Full Cart</span>
         </a>
-        <a href="checkout.html" class="li-button li-button-fullwidth">
+        <a href="{% url 'you_checkout' %}" class="li-button li-button-fullwidth">
             <span>Checkout</span>
         </a>
     </div>
@@ -165,7 +165,7 @@
             </div>
             <!-- Header Middle Area End Here -->
             <!-- Begin Header Bottom Area -->
-            <div class="header-bottom header-sticky d-none d-lg-block d-xl-block">
+            <div class="header-bottom header-sticky d-none d-lg-block d-xl-block mb-0">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-12">
@@ -178,25 +178,14 @@
                                                 
                                                 {% for category in categorys %}
                                                 
-                                        <li class=""><a href="{% url 'catagory_product_list_view' category.slug %}">{{category.name}}</a></li>
-                                                                                                
+                                        <li class=""><a href="{% url 'catagory_product_list_view' category.slug %}">{{category.name}}</a></li>                                    
                                                 {% endfor %}
-                                                <!-- <li><a href="index-2.html">Бизнес ва психология</a></li>
-                                                <li><a href="index-3.html">Совғалар</a></li>
-                                                <li><a href="index-4.html">Ўзбек адабиёти</a></li>
-                                                <li><a href="index-4.html">Жаҳон адабиёти</a></li>
-                                                <li><a href="index-4.html">Кийимлар</a></li>
-                                                <li><a href="index-4.html">Табобат</a></li>
-                                                <li><a href="index-4.html">Жойнамоз</a></li>
-                                                <li><a href="index-4.html">Араб тили дарслик</a></li> -->
-    
-                                                
                                             </ul>
                                         </li>
-                                        <li><a href="index.html">Bosh sahifa</a></li>
-                                        <li><a href="about-us.html">Kitoblar</a></li>
-                                        <li><a href="contact.html">Aksesuarlar</a></li>
-                                        <li><a href="shop-left-sidebar.html">Kantakt</a></li>
+                                        <li><a href="{% url 'home' %}">Bosh sahifa</a></li>
+                                        <li><a href="{% url 'catagory_product_list_view' 'all' %}">Kitoblar</a></li>
+                                        <li><a href="{% url 'catagory_product_list_view' 'all' %}">Aksesuarlar</a></li>
+                                        <li><a href="{% url 'cantact_view' %}">Kantakt</a></li>
                                     </ul>
                                 </nav>
                             </div>
@@ -466,15 +455,26 @@ $( document ).ready(function() {
 
     var form=document.getElementsByClassName('.minicart-product-list');
         
-        $('.card-data-product').on('change' , '.cart-plus-minus-box',function(){
+        $('.card-data-product').on('change' ,'.cart-plus-minus-box',function(){
+            alert('ishladi')
             var product_id=$(this).data('productid');
             var product_soni=parseInt($(this).val())
             cartupdate(product_id,product_soni)
         })
 
         
+        
+        $('.cart-quantity').on('click','.add-to-cart',function(event){
+            event.preventDefault()
+            var product_id=$(this).data('productid');
+            var product_soni=parseInt($('.cart-plus-minus-box').val())
+            // console.log(product_soni,product_id)
+            cartupdate(product_id,product_soni)
+            
+        })
 
-        $('.addtocard').on('click',function(){
+        $('.addtocard').on('click',function(event){
+            event.preventDefault()
             var product_id=$(this).data('productid');
             addtocart(product_id)
         })
@@ -483,8 +483,9 @@ $( document ).ready(function() {
             var product_id=$(this).data('item');
             delete_cart(product_id)
         })
-        $('.card-data-product').on('click','.dec',function(){
-            
+
+        
+        $('.card-data-product, .singile_product').on('click','.dec',function(){    
             var product_soni=parseInt($('.cart-plus-minus-box').val());
             var product_id=$('.cart-plus-minus-box').data('productid')
             if(product_soni>0){
@@ -492,14 +493,14 @@ $( document ).ready(function() {
             $('.cart-plus-minus-box').val(product_soni)
             cartupdate(product_id,product_soni)
         }})
+       
 
         $('.card-data-product').on('click','.li-product-remove',function(){
-
             var product_id=$('.cart-plus-minus-box').data('productid')
             delete_cart(product_id)
         })
 
-        $('.card-data-product').on('click','.inc',function(){
+        $('.card-data-product, .singile_product').on('click','.inc',function(){
 
             var product_id=$('.cart-plus-minus-box').data('productid');
             var product_soni=parseInt($('.cart-plus-minus-box').val());
@@ -580,7 +581,8 @@ $( document ).ready(function() {
                         cart_text(response.data.data_session)
                      );
 
-                    $('.minicart-total').html('Summa: <span>'+response.data.yigindi+' so\'m')  
+                    $('.minicart-total').html('Summa: <span>'+response.data.yigindi+' so\'m')
+                        $('.yigindi_summa').html(response.data.yigindi+' so\'m')  
                     $( '.minicart-product-list' ).on( 'click', '.qtybutton',function(){
                         alert('salom');
                     });
@@ -613,7 +615,8 @@ $( document ).ready(function() {
                         cart_text(response.data.data_session)
                      );
 
-                    $('.minicart-total').html('Summa: <span>'+response.data.yigindi+' so\'m')  
+                    $('.minicart-total').html('Summa: <span>'+response.data.yigindi+' so\'m') 
+                        $('.yigindi_summa').html(response.data.yigindi+' so\'m') 
                     $( '.minicart-product-list' ).on( 'click', '.qtybutton',function(){
                         alert('salom');
                     });
@@ -647,7 +650,8 @@ $( document ).ready(function() {
                         cart_text(response.data.data_session)
                      );
 
-                    $('.minicart-total').html('Summa: <span>'+response.data.yigindi+' so\'m')  
+                    $('.minicart-total').html('Summa: <span>'+response.data.yigindi+' so\'m')
+                    $('.yigindi_summa').html(response.data.yigindi+' so\'m')  
                     $( '.minicart-product-list' ).on( 'click', '.qtybutton',function(){
                         alert('salom');
                     });

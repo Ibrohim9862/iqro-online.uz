@@ -5991,37 +5991,38 @@ span.required {
     padding-top: 16px;
 }
 
-.category-sub-menu li.has-sub>a {
-    color: #242424;
+.category-sub-menu li>a {
+    color: #000;
     cursor: pointer;
     display: block;
     line-height: 20px;
     position: relative;
 }
 
-.category-sub-menu li.has-sub li a {
-    border: 0 none;
+
+.category-sub-menu ul li a {
+    /* border: 0 none; */
     display: block;
     font-size: 14px;
     padding: 0 10px;
-    color: #333;
+    color: #000;
 }
 
-.category-sub-menu li.has-sub li a:hover {
+.category-sub-menu  li a:hover {
     color: #2AFF2A;
 }
 
-.category-sub-menu li.has-sub>a::after {
+.category-sub-menu li>a::after {
     color: #242424;
-    content: "\f067";
+    /* content: "\f067"; */
     font-family: fontawesome;
     font-size: 16px;
     position: absolute;
     right: 5px;
 }
 
-.category-sub-menu li.has-sub.open>a::after {
-    content: "\f068";
+.category-sub-menu li.open>a::after {
+    /* content: "\f068"; */
 }
 
 .sidebar-categores-box .filter-sub-area h5 {
@@ -6797,6 +6798,10 @@ span.required {
 
 .small-version {
     display: none;
+}
+
+.has-sub1{
+    color: black;
 }
 
 

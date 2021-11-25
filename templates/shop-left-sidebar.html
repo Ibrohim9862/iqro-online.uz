@@ -11,8 +11,8 @@
     <div class="container">
         <div class="breadcrumb-content">
             <ul>
-                <li><a href="index.html">Home</a></li>
-                <li class="active">Shop Left Sidebar</li>
+                <li><a href="index.html">Bosh sahifa</a></li>
+                <li class="active">Kategoriya</li>
             </ul>
         </div>
     </div>
@@ -54,17 +54,16 @@
                         <!-- single-product-wrap start -->
                         <div class="single-product-wrap">
                             <div class="product-image">
-                                <a href="single-product.html">
+                                <a href="{% url 'product_detail' yangi.catagory.slug yangi.slug %}">
                                     <img src="{{ MEDIA_URL }}{{ yangi.image.url }}" alt="Li's Product Image">
                                 </a>
-                                <span class="sticker">New</span>
+                               
                             </div>
                             <div class="product_desc">
                                 <div class="product_desc_info">
                                     <div class="product-review">
                                         <h5 class="manufacturer">
-                                            <a href="shop-left-sidebar.html">{{ yangi.category__name }}</a>
-                                        </h5>
+                                            <a href="{% url 'catagory_product_list_view' yangi.catagory.slug %}">{{ yangi.catagory.name|truncatechars:15 }}</a>                                        </h5>
                                         <div class="rating-box">
                                             <ul class="rating">
                                                 <li><i class="fa fa-star-o"></i></li>
@@ -75,7 +74,7 @@
                                             </ul>
                                         </div>
                                     </div>
-                                    <h4><a class="product_name" href="single-product.html">{{yangi.name}}</a></h4>
+                                    <h4><a class="product_name" href="single-product.html">{{yangi.name|truncatechars:25}}</a></h4>
                                     <div class="price-box">
                                         <span class="new-price">{{yangi.narx}} so'm</span>
                                     </div>
@@ -83,7 +82,7 @@
                                 <div class="add-actions">
                                     <ul class="add-actions-link">
                                         <li class="add-cart active"><a href="#" data-productid='{{yangi.id}}'>Add to cart</a></li>
-                                        <li><a href="{% url 'product_detail' yangi.catagory.slug yangi.slug %}" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
+                                        <li><a href="{% url 'product_detail' yangi.catagory.slug yangi.slug %}" title="quick view" class="quick-view-btn" ><i class="fa fa-eye"></i></a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -106,7 +105,7 @@
                                         <div class="col-lg-3 col-md-5 ">
                                             <div class="product-image">
                                                 <a href="single-product.html">
-                                                    <img src="static{{ yangi.image.url }}" alt="Li's Product Image">
+                                                    <img src="{{ MEDIA_URL }}{{ yangi.image.url }}" alt="Li's Product Image">
                                                 </a>
                                                 <span class="sticker">New</span>
                                             </div>
@@ -191,11 +190,9 @@
                     </div>
                     <!-- category-sub-menu start -->
                     <div class="category-sub-menu">
-                        <ul>
-                            
+                        <ul> 
                             {% for kategory in categorys %}
-                            </ul>
-                            <li class="has-sub"><a href="{% url 'catagory_product_list_view' kategory.slug  %}">{{ kategory.name }}</a></li>    
+                            <li  ><a class="has-sub1" href="{% url 'catagory_product_list_view' kategory.slug  %}">{{ kategory.name }}</a></li>    
                             {% endfor %}
                         </ul>
                     </div>
