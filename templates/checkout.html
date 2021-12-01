@@ -9,8 +9,8 @@
     <div class="container">
         <div class="breadcrumb-content">
             <ul>
-                <li><a href="index.html">Home</a></li>
-                <li class="active">Checkout</li>
+                <li><a href="{% url 'home' %}">Bosh sahifa</a></li>
+                <li class="active">Buyutmani rasmiylashtirish</li>
             </ul>
         </div>
     </div>
@@ -19,84 +19,7 @@
     <div class="container">
    
         <div class="row">
-            <div class="col-lg-6 col-12">
-                <form action="{% url 'you_checkout' %}" method="POST">
-                    {% csrf_token %}
-                    <div class="checkbox-form">
-                        <h3>Billing Details</h3>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="checkout-form-list">
-                                    <label>First Name <span class="required">*</span></label>
-                                    {{form.ism}}
-                                    {% for error in form.ism.errors %}
-                                        <small>{{error}}</small> 
-                                    {% endfor %}
-                                </div>
-                                
-                            </div>
-                            <div class="col-md-6">
-                                <div class="checkout-form-list">
-                                    <label>Last Name <span class="required">*</span></label>
-                                    {{form.familya}} 
-                                    
-                                    {% for error in form.familya.errors %}
-                                        <small>{{error}}</small> 
-                                    {% endfor %}
-                                        
-                                </div>
-                            </div>
-                           
-                            <div class="col-md-12">
-                                <div class="checkout-form-list">
-                                    <label>Address <span class="required">*</span></label>
-                                    {{form.Address}}
-                                    
-                                    {% for error in form.Address.errors %}
-                                        <small>{{error}}</small> 
-                                    {% endfor %}
-                                </div>
-                            </div>
-                            
-                            <div class="col-md-6">
-                                <div class="checkout-form-list">
-                                    <label>Email Address <span class="required"></span></label>
-                                    {{form.email}}
-                                    {% for error in form.Address.errors %}
-                                        <small>{{error}}</small> 
-                                    {% endfor %}
-                                    
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="checkout-form-list">
-                                    <label>Phone  <span class="required">*</span></label>
-                                    {{form.phone}}
-                                    {% for error in form.Address.errors %}
-                                        <small>{{error}}</small> 
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="different-address">
-                            
-                            <div class="order-notes">
-                                <div class="checkout-form-list">
-                                    <label>Order Notes</label>
-                                    {{form.discription}}
-                                    
-                                    {% for error in form.Address.errors %}
-                                        <small>{{error}}</small> 
-                                    {% endfor %}    
-                                </div>
-                            </div>
-                        </div>
-                        <div class="order-button-payment">
-                            <input value="Place order" type="submit">
-                        </div>
-                    </div>
-                </form>
-            </div>
+           
             <div class="col-lg-6 col-12">
                 <div class="your-order">
                     <h3>Your order</h3>
@@ -132,6 +55,63 @@
                     </div>
                    
                 </div>
+            </div>
+            <div class="col-lg-6 col-12">
+                <form action="{% url 'you_checkout' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="checkbox-form">
+                        <h3>Billing Details</h3>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="checkout-form-list">
+                                    <label>Ism <span class="required">*</span></label>
+                                    {{form.ism}}
+                                    {% for error in form.ism.errors %}
+                                        <small>{{error}}</small> 
+                                    {% endfor %}
+                                </div>
+                                
+                            </div>
+                            <div class="col-md-6">
+                                <div class="checkout-form-list">
+                                    <label>Familya <span class="required">*</span></label>
+                                    {{form.familya}} 
+                                    
+                                    {% for error in form.familya.errors %}
+                                        <small>{{error}}</small> 
+                                    {% endfor %}
+                                        
+                                </div>
+                            </div>
+                           
+                            <div class="col-md-12">
+                                <div class="checkout-form-list">
+                                    <label>Manzil <span class="required">*</span></label>
+                                    {{form.Address}}
+                                    
+                                    {% for error in form.Address.errors %}
+                                        <small>{{error}}</small> 
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            
+                            
+                            <div class="col-md-12">
+                                <div class="checkout-form-list">
+                                    <label>Telefon Numer  <span class="required">*</span></label>
+                                    {{form.phone}}
+                                    {% for error in form.Address.errors %}
+                                        <small>{{error}}</small> 
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                      
+                        <div class="order-button-payment">
+                            <input value="Place order" type="submit">
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

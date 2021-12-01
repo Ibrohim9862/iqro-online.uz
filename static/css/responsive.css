@@ -441,7 +441,7 @@ Note: responsive.css, All Responsive CSS Style For This Theme Included In This F
 		top: -10px;
 	}
 	.minicart {
-		left: 0;
+		left: 0px;
 		right: auto;
 	}
 	/*Header Bottom*/
@@ -634,7 +634,7 @@ Note: responsive.css, All Responsive CSS Style For This Theme Included In This F
 		padding: 0 5px;
 	}
 	.minicart {
-		left: -59px;
+		left: 0px;
 	}
 	/*Header Middle*/
 	.logo {

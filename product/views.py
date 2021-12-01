@@ -1,3 +1,4 @@
+from django.conf.urls import url
 from django.core.paginator import Paginator
 from django.forms.forms import Form
 from django.http.response import JsonResponse
@@ -5,9 +6,25 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import ListView,DetailView
 from .forms import UserShopAddressForms
 from django.db.models import Q
+import telegram
+from django.contrib import messages
+from django.core.serializers.json import DjangoJSONEncoder
+from django.core.serializers import serialize
+from django.conf import Settings, settings
+
 
 
 from .models import Banner, Books, Category, OrderItem, UsershopAdress
+
+
+
+def yigindi_total(request):
+    request.session['yigindi']=0
+    for ham in request.session['cartdata'].keys():
+        request.session['yigindi'] += request.session['cartdata'][str(ham)]['total']
+    return request.session['yigindi']
+
+
 
 
 def homeview(request):
@@ -17,6 +34,9 @@ def homeview(request):
     biznes_boyicha=book_object.filter(catagory__name='Biznes va psixologiya')[:10]
     jaxon_boyicha=book_object.filter(catagory__name='Jahon adabiyoti')[:10]
     
+    cart_p={}
+    request.session['cartdata']=cart_p
+    yigindi_total(request)
     context={
         'banners': banner,
         'yangilari':yangilari,
@@ -30,7 +50,7 @@ class CategoryProductListView(ListView):
     model=Books
     template_name='shop-left-sidebar.html'
     context_object_name="product"
-    paginate_by=3
+    paginate_by=15
         
     def get_queryset(self):
         if self.kwargs.get('category_slug')=='all':
@@ -59,8 +79,8 @@ class ProductDetial(DetailView):
 
 def serachview(request):
     search_name=request.GET['search_name']
-    product=Books.objects.filter(Q(name__icontains=search_name)|Q(auther__icontains=search_name)|Q(catagory__name__icontains=search_name)|Q(discription__icontains=search_name))
-    paginator = Paginator(product, 3) 
+    product=Books.objects.filter(Q(name__icontains=search_name)|Q(auther__icontains=search_name)|Q(catagory__name__icontains=search_name)|Q(discription__icontains=search_name)).order_by('id')
+    paginator = Paginator(product, 15) 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     context={
@@ -70,27 +90,23 @@ def serachview(request):
     return render(request,'shop-left-sidebar.html',context)
 
 
-def yigindi_total(request):
-    request.session['yigindi']=0
-    for ham in request.session['cartdata'].keys():
-        request.session['yigindi'] += request.session['cartdata'][str(ham)]['total']
-    return request.session['yigindi']
-
-
-
 def addtocard(request,soni=1):
     
     
     product=Books.objects.get(id=request.GET['product_id'])
+    
     cart_p={}
     cart_p[str(request.GET['product_id'])]={
         'nomi':product.name,
         'soni':soni,
         'image':product.image.url,  
         'narxi':product.narx,
-        'total':product.narx * soni
+        'total':product.narx * soni,
+        'slug':product.slug,
+        'cslug':product.catagory.slug
     }
-    
+
+
     if 'cartdata' in request.session:
         if str(request.GET['product_id']) in request.session['cartdata']:
             cartdata=request.session['cartdata']
@@ -128,8 +144,7 @@ def cartupdate(request):
     
     
     yigindi=yigindi_total(request)
-    print(request.session['cartdata'])
-    print(yigindi)
+    
     context={
         'data_session':request.session['cartdata'],
         'yigindi':yigindi
@@ -148,8 +163,6 @@ def delete(request):
             cartdata.update(cartdata)
             request.session['cartdata']=cartdata
 
-    print(cartdata)
-    print(request.session['cartdata'])
     yigindi=yigindi_total(request)
 
     context={
@@ -175,18 +188,30 @@ def youcheckout(request):
     if request.session['cartdata']: 
         if formt.is_valid():
             m=formt.save()
-            print('ishladi')
-            print(m.id)
+         
+            text='ism: '+m.ism+' '+m.familya+'\nAddres: '+m.Address+'\nNomer: '+m.phone+'\n'
+            text1=''
             for key,value1 in request.session['cartdata'].items():
+                prduct=Books.objects.get(id=key)
+                text1+="kitob nomi:"+str(prduct)+"\nsoni:"+str(value1['soni'])+"\n"
                 order=OrderItem()
                 order.order=m
-                order.product=Books.objects.get(id=key)
+                order.product=prduct
                 order.qauntity=value1['soni']
                 order.save()
-                request.session.clear()
-                request.session['cartdata']={}
-                request.session['yigindi']=0
-                return redirect('home')
+            text=text+text1
+            telegram_settings = settings.TELEGRAM
+            bot = telegram.Bot(token=telegram_settings['bot_token'])
+            bot.send_message(chat_id="@%s" % telegram_settings['channel_name'],
+            text=text, parse_mode=telegram.ParseMode.HTML)
+
+            request.session.clear()
+            request.session['cartdata']={}
+            request.session['yigindi']=0
+            messages.success(request, 'Muafaqiyatli bajarildi',extra_tags='alert')
+            return redirect('home')
+        else:
+            messages.warning(request, 'Please correct the error below.',extra_tags='alert')
 
     context={'form':formt}
     return render(request,'checkout.html',context)

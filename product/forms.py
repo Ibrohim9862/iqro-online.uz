@@ -6,4 +6,4 @@ class UserShopAddressForms(forms.ModelForm):
 
     class Meta:
         model=UsershopAdress
-        fields=('ism','familya','Address','phone','email','discription')
+        fields=('ism','familya','Address','phone')

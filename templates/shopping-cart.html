@@ -7,8 +7,8 @@
                 <div class="container">
                     <div class="breadcrumb-content">
                         <ul>
-                            <li><a href="index.html">Home</a></li>
-                            <li class="active">Shopping Cart</li>
+                            <li><a href="{% url 'home' %}">Bosh sahifa</a></li>
+                            <li class="active">Buyurtmalar</li>
                         </ul>
                     </div>
                 </div>
@@ -24,12 +24,12 @@
                                     <table class="table">
                                         <thead>
                                             <tr>
-                                                <th class="li-product-remove">remove</th>
-                                                <th class="li-product-thumbnail">images</th>
-                                                <th class="cart-product-name">Product</th>
-                                                <th class="li-product-price">Unit Price</th>
-                                                <th class="li-product-quantity">Quantity</th>
-                                                <th class="li-product-subtotal">Total</th>
+                                                <th class="li-product-remove">O'chirish</th>
+                                                <th class="li-product-thumbnail">Rasm</th>
+                                                <th class="cart-product-name">Mahsulot</th>
+                                                <th class="li-product-price">mahsulot narxi</th>
+                                                <th class="li-product-quantity">Soni</th>
+                                                <th class="li-product-subtotal">umumiy narxi</th>
                                             </tr>
                                         </thead>
                                         <tbody class="card-data-product">
@@ -40,8 +40,8 @@
                                          
                                             <tr>  
                                                 <td class="li-product-remove"><a href="#"><i class="fa fa-times"></i></a></td>
-                                                <td class="li-product-thumbnail"><a href="#"><img src="{{ MEDIA_URL }}{{value.image}}" width="100" height="120" alt="Li's Product Image"></a></td>
-                                                <td class="li-product-name"><a href="#">{{value.nomi}}</a></td>
+                                                <td class="li-product-thumbnail"><a href="{% url 'product_detail' value.cslug value.slug %}"><img src="{{ MEDIA_URL }}{{value.image}}" width="100" height="120" alt="{{ MEDIA_URL }}{{value.image}}"></a></td>
+                                                <td class="li-product-name"><a href="{% url 'product_detail' value.cslug value.slug %}">{{value.nomi}}</a></td>
                                                 <td class="li-product-price"><span class="amount">{{value.narxi}}</span></td>
                                                 <td class="quantity">
                                                     <label>Soni</label>
@@ -74,13 +74,14 @@
                                 <div class="row">
                                     <div class="col-12 ml-auto">
                                         <div class="cart-page-total">
-                                            <h2>Cart totals</h2>
+                                            <h2>Umumiy Hisob</h2>
                                             <ul>
                                                 <li class="summasi">Umumiy hisob <span class="yigindi_summa">{{ request.session.yigindi }} so'm</span> </li>
                                             </ul>
-                                            
-                                            <a href="#" class="mr-auto">Proceed to checkout</a>
-                                        </div>
+                                            <div class="button_cart">
+                                                  <a class="" href="{% url 'you_checkout' %}" class="">Buyurtma berish</a>
+                                                </div>
+                                            </div>
                                     </div>
                                 </div>
                             </form>

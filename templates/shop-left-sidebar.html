@@ -57,7 +57,7 @@
                                 <a href="{% url 'product_detail' yangi.catagory.slug yangi.slug %}">
                                     <img src="{{ MEDIA_URL }}{{ yangi.image.url }}" alt="Li's Product Image">
                                 </a>
-                               
+                                
                             </div>
                             <div class="product_desc">
                                 <div class="product_desc_info">
@@ -74,14 +74,14 @@
                                             </ul>
                                         </div>
                                     </div>
-                                    <h4><a class="product_name" href="single-product.html">{{yangi.name|truncatechars:25}}</a></h4>
+                                    <h4><a class="product_name" href="{% url 'product_detail' yangi.catagory.slug yangi.slug %}">{{yangi.name|truncatechars:25}}</a></h4>
                                     <div class="price-box">
                                         <span class="new-price">{{yangi.narx}} so'm</span>
                                     </div>
                                 </div>
                                 <div class="add-actions">
                                     <ul class="add-actions-link">
-                                        <li class="add-cart active"><a href="#" data-productid='{{yangi.id}}'>Add to cart</a></li>
+                                        <li class="add-cart active"><a href="#" class="addtocard" data-productid='{{yangi.id}}'>Add to cart</a></li>
                                         <li><a href="{% url 'product_detail' yangi.catagory.slug yangi.slug %}" title="quick view" class="quick-view-btn" ><i class="fa fa-eye"></i></a></li>
                                     </ul>
                                 </div>
@@ -107,7 +107,7 @@
                                                 <a href="single-product.html">
                                                     <img src="{{ MEDIA_URL }}{{ yangi.image.url }}" alt="Li's Product Image">
                                                 </a>
-                                                <span class="sticker">New</span>
+                                                
                                             </div>
                                         </div>
                                         <div class="col-lg-5 col-md-7">

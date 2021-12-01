@@ -100,7 +100,7 @@ Note: main.js, All Default Scripting Languages For This Theme Included In This F
 		item: 5,
 		responsive: {
 			0: {
-					items: 1
+					items: 2
 			},
 			480: {
 					items: 2
@@ -129,10 +129,10 @@ Note: main.js, All Default Scripting Languages For This Theme Included In This F
 		item: 4,
 		responsive: {
 			0: {
-					items: 1
+					items: 2
 			},
 			480: {
-					items: 1
+					items: 2
 			},
 			768: {
 					items: 2
@@ -242,7 +242,7 @@ Note: main.js, All Default Scripting Languages For This Theme Included In This F
 		item: 2,
 		responsive: {
 			0: {
-				items: 1
+				items: 2
 			},
 			480: {
 				items: 2
@@ -364,7 +364,7 @@ Note: main.js, All Default Scripting Languages For This Theme Included In This F
      item: 3,
      responsive: {
         0: {
-            items: 1
+            items: 2
         },
         768: {
             items: 2
