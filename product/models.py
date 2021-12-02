@@ -14,10 +14,6 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
-    
-    def image_tag(self):
-        return mark_safe('<img src="%s" width="80" heigth="60">' % (self.image.url))  
-
 class Books(models.Model):
     
     name = models.CharField(max_length=60)
@@ -36,10 +32,15 @@ class Books(models.Model):
     def __str__(self):
         return self.name
 
+    def image_tag(self):
+        return mark_safe('<img src="%s" alt="" width="80" heigth="60">' %(self.image.url))
 
 class Banner(models.Model):
     banner=models.ForeignKey(Books,on_delete=models.CASCADE)
     image=models.ImageField(upload_to='banner/')
+
+    def image_tag(self):
+        return mark_safe('<img src="%s" alt="" width="80" heigth="60">' %(self.image.url))
 
     
 class UsershopAdress(models.Model):

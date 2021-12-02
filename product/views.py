@@ -187,32 +187,28 @@ def youcheckout(request):
     formt = UserShopAddressForms(request.POST or None)    
     if request.session['cartdata']: 
         if formt.is_valid():
-            m=formt.save()
-         
-            text='ism: '+m.ism+' '+m.familya+'\nAddres: '+m.Address+'\nNomer: '+m.phone+'\n'
+            m=formt.save()        
+            text='👨‍💼:\t '+m.ism+' '+m.familya+'\n🏠\t: '+m.Address+'\n📱\t: '+m.phone+'\n'
             text1=''
             for key,value1 in request.session['cartdata'].items():
                 prduct=Books.objects.get(id=key)
-                text1+="kitob nomi:"+str(prduct)+"\nsoni:"+str(value1['soni'])+"\n"
+                text1+="📗:\t"+str(prduct)+"\n🛒:\t*"+str(value1['soni'])+"*\n"
                 order=OrderItem()
                 order.order=m
                 order.product=prduct
                 order.qauntity=value1['soni']
                 order.save()
-            text=text+text1
+            text=text+text1+'\n🧮:\t'+str(request.session['yigindi'])+'so\'m'
             telegram_settings = settings.TELEGRAM
             bot = telegram.Bot(token=telegram_settings['bot_token'])
             bot.send_message(chat_id="@%s" % telegram_settings['channel_name'],
             text=text, parse_mode=telegram.ParseMode.HTML)
 
-            request.session.clear()
+            del request.session['cartdata']
+            del request.session['yigindi']
             request.session['cartdata']={}
             request.session['yigindi']=0
-            messages.success(request, 'Muafaqiyatli bajarildi',extra_tags='alert')
             return redirect('home')
-        else:
-            messages.warning(request, 'Please correct the error below.',extra_tags='alert')
-
     context={'form':formt}
     return render(request,'checkout.html',context)
 
