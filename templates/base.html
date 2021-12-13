@@ -38,9 +38,34 @@
     padding: 0;
     min-height: 0;
 }	 */
+
+.alert-box {
+	padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;  
+}
+
+.success {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+    display: none;
+}
     </style>
 </head>
 <body>
+
+    
+    {% if messages %}
+    {% for message in messages %}
+        
+    
+    {% endfor %}
+    {% endif %}
+    
+
+    <div class="alert-box success">Successful Alert !!!</div>
     <div class="body-wrapper">
         <!-- Begin Header Area -->
         <header>
@@ -214,7 +239,8 @@
             <!-- Mobile Menu Area End Here -->
         </header>
 
-
+        
+        
         {% block content %} {% endblock content %}
 
 
@@ -261,8 +287,8 @@
                                         <img src="{% static 'images/shipping-icon/3.png' %}" alt="Shipping Icon">
                                     </div>
                                     <div class="shipping-text">
-                                        <h2>Shop with Confidence</h2>
-                                        <p>Our Buyer Protection covers your purchasefrom click to delivery.</p>
+                                        <h2>Ishonch bilan xarid qiling</h2>
+                                        <p>Bizning Xaridor himoyasi sizning xaridingizni bosishdan to yetkazib berishgacha qamrab oladi.</p>
                                     </div>
                                 </div>
                             </div>
@@ -403,13 +429,22 @@
         <div class="myAlert-top alert alert-success">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
             <div class="myalerthide"></div>
-        </div>
+        </div>  
+        
+        
+    {% if messages %}
+    {% for message in messages %}
 
-        
-      
-        
+    <div class="myAlert-top myalert alert alert-success">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <div class="myalerthide">{{message}}</div>
     </div>
     
+    {% endfor %}
+    {% endif %}
+    </div>
+    
+
 
 
 
@@ -457,6 +492,7 @@
 
 $( document ).ready(function() {
 
+    
     function myAlertTop(){
          $(".myAlert-top").show();
          setTimeout(function(){
@@ -464,6 +500,24 @@ $( document ).ready(function() {
         }, 2000);
     }
 
+    function myAlertTop1(){
+         $(".myalert").show();
+         setTimeout(function(){
+         $(".myalert").hide(); 
+        }, 2000);
+    }
+
+    {% if messages %}
+    {% for message in messages %}
+
+    
+    window.setTimeout(function() {
+        myAlertTop1();
+    }, 400);
+    
+    {% endfor %}
+    {% endif %}
+    
     var form=document.getElementsByClassName('.minicart-product-list');
         
         $('.card-data-product').on('change' ,'.cart-plus-minus-box',function(){
@@ -636,7 +690,7 @@ $( document ).ready(function() {
                         alert('salom');
                     });
                     $('.maxsulot_cart').html(maxsulot_cart(response.data.data_session));
-                    $('.myalerthide').html('<strong>Muafaqiyatli bajarildi!</strong> tanlagan mahsulotingiz savatchaga qo\'shildi!');
+                    $('.myalerthide').html('<strong>Muafaqiyatli bajarildi!</strong> tanlagan mahsulotingiz savatchaga qo\'shildi! savatchani bosing');
                     myAlertTop();    
                 },   
                                  
@@ -671,7 +725,7 @@ $( document ).ready(function() {
                         alert('salom');
                     });
                     $('.maxsulot_cart').html(maxsulot_cart(response.data.data_session))
-                    $('.myalerthide').html('<strong>Muafaqiyatli bajarildi!</strong> Mahsulotlarinig malumotari o\'zgartirildi!');
+                    $('.myalerthide').html('<strong>Muafaqiyatli bajarildi!</strong> Mahsulotlarinig malumotari o\'zgartirildi! savatchani bosing');
                     myAlertTop();
                 }, 
 

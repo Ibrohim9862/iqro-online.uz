@@ -70,7 +70,7 @@
                             <div class="single-product-wrap">
                                 <div class="product-image">
                                     <a href="{% url 'product_detail' yangi.catagory.slug yangi.slug %}">
-                                        <img src="static{{ yangi.image.url }}" alt="Li's Product Image">
+                                        <img src="{{ MEDIA_URL }}{{ yangi.image.url }}" alt="Li's Product Image">
                                     </a>
                                     <span class="sticker">New</span>
                                 </div>
@@ -96,8 +96,9 @@
                                     </div>
                                     <div class="add-actions">
                                         <ul class="add-actions-link">
-                                            <li class="add-cart active"><a href="#" class="addtocard" data-productid='{{yangi.id}}'>Add to cart</a></li>
-                                            <li><a href="{% url 'product_detail' yangi.catagory.slug yangi.slug %}" title="quick view" class="quick-view-btn" ><i class="fa fa-eye"></i></a></li>
+                                            <li class="add-cart active"><a href="#" class="addtocard" data-productid='{{yangi.id}}' title="Savatchaga qo'shish">tanlash</a></li>
+                                            <li><a class="links-details" href="{% url 'order_product' %}"><i class="fa fa-shopping-cart"></i></a></li>
+                                            <li><a href="{% url 'product_detail' yangi.catagory.slug yangi.slug %}" title="Batafsil" class="quick-view-btn" ><i class="fa fa-eye"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -160,9 +161,9 @@
                         <div class="single-product-wrap">
                             <div class="product-image">
                                 <a href="{% url 'product_detail' yangi.catagory.slug yangi.slug %}">
-                                    <img src="static{{ yangi.image.url }}" alt="Li's Product Image">
+                                    <img src="{{ MEDIA_URL }}{{ yangi.image.url }}" alt="Li's Product Image">
                                 </a>
-                                
+                                <span class="sticker">New</span>
                             </div>
                             <div class="product_desc">
                                 <div class="product_desc_info">
@@ -186,8 +187,9 @@
                                 </div>
                                 <div class="add-actions">
                                     <ul class="add-actions-link">
-                                        <li class="add-cart active"><a href="#" class="addtocard" data-productid='{{yangi.id}}'>Add to cart</a></li>
-                                        <li><a href="{% url 'product_detail' yangi.catagory.slug yangi.slug %}" title="quick view" class="quick-view-btn" ><i class="fa fa-eye"></i></a></li>
+                                        <li class="add-cart active"><a href="#" class="addtocard" data-productid='{{yangi.id}}' title="Savatchaga qo'shish">tanlash</a></li>
+                                        <li><a class="links-details" href="{% url 'order_product' %}"><i class="fa fa-shopping-cart"></i></a></li>
+                                        <li><a href="{% url 'product_detail' yangi.catagory.slug yangi.slug %}" title="Batafsil" class="quick-view-btn" ><i class="fa fa-eye"></i></a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -225,9 +227,9 @@
                             <div class="single-product-wrap">
                                 <div class="product-image">
                                     <a href="{% url 'product_detail' yangi.catagory.slug yangi.slug %}">
-                                        <img src="static{{ yangi.image.url }}" alt="Li's Product Image">
+                                        <img src="{{ MEDIA_URL }}{{ yangi.image.url }}" alt="Li's Product Image">
                                     </a>
-                                    
+                                    <span class="sticker">New</span>
                                 </div>
                                 <div class="product_desc">
                                     <div class="product_desc_info">
@@ -251,8 +253,9 @@
                                     </div>
                                     <div class="add-actions">
                                         <ul class="add-actions-link">
-                                            <li class="add-cart active"><a href="#" class="addtocard" data-productid='{{yangi.id}}'>Add to cart</a></li>
-                                            <li><a href="{% url 'product_detail' yangi.catagory.slug yangi.slug %}" title="quick view" class="quick-view-btn" ><i class="fa fa-eye"></i></a></li>
+                                            <li class="add-cart active"><a href="#" class="addtocard" data-productid='{{yangi.id}}' title="Savatchaga qo'shish">tanlash</a></li>
+                                            <li><a class="links-details" href="{% url 'order_product' %}"><i class="fa fa-shopping-cart"></i></a></li>
+                                            <li><a href="{% url 'product_detail' yangi.catagory.slug yangi.slug %}" title="Batafsil" class="quick-view-btn" ><i class="fa fa-eye"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>

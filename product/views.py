@@ -30,9 +30,9 @@ def yigindi_total(request):
 def homeview(request):
     book_object=Books.objects
     banner=Banner.objects.all()
-    yangilari=book_object.all()[:10]
-    biznes_boyicha=book_object.filter(catagory__name='Biznes va psixologiya')[:10]
-    jaxon_boyicha=book_object.filter(catagory__name='Jahon adabiyoti')[:10]
+    yangilari=book_object.all().order_by('-id')[:10]
+    biznes_boyicha=book_object.filter(catagory__name='Biznes va psixologiya').order_by('-id')[:10]
+    jaxon_boyicha=book_object.filter(catagory__name='Jahon adabiyoti').order_by('-id')[:10]
     
     cart_p={}
     request.session['cartdata']=cart_p
@@ -208,6 +208,7 @@ def youcheckout(request):
             del request.session['yigindi']
             request.session['cartdata']={}
             request.session['yigindi']=0
+            messages.success(request,'Buyurtmangiz muvaffaqiyat bajarildi!')
             return redirect('home')
     context={'form':formt}
     return render(request,'checkout.html',context)
